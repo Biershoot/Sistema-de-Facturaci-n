@@ -3,20 +3,30 @@ package com.alejandro.facturacion.controller;
 import com.alejandro.facturacion.entity.Client;
 import com.alejandro.facturacion.service.ClientService;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Controlador REST para la gestión de clientes.
+ * Proporciona endpoints para crear, listar, obtener y eliminar clientes.
+ */
 @RestController
 @RequestMapping("/api/clients")
-@RequiredArgsConstructor
 public class ClientController {
 
     private final ClientService clientService;
 
-    // Crear cliente
+    public ClientController(ClientService clientService) {
+        this.clientService = clientService;
+    }
+
+    /**
+     * Crea un nuevo cliente.
+     * @param client Cliente a crear
+     * @return Cliente creado o error si ya existe email o identificación
+     */
     @PostMapping
     public ResponseEntity<Client> createClient(@Valid @RequestBody Client client) {
         if (clientService.existsByEmail(client.getEmail()) ||
@@ -26,13 +36,20 @@ public class ClientController {
         return ResponseEntity.ok(clientService.saveClient(client));
     }
 
-    // Listar todos los clientes
+    /**
+     * Obtiene la lista de todos los clientes.
+     * @return Lista de clientes
+     */
     @GetMapping
     public ResponseEntity<List<Client>> getAllClients() {
         return ResponseEntity.ok(clientService.getAllClients());
     }
 
-    // Obtener cliente por ID
+    /**
+     * Obtiene un cliente por su ID.
+     * @param id ID del cliente
+     * @return Cliente encontrado o 404 si no existe
+     */
     @GetMapping("/{id}")
     public ResponseEntity<Client> getClientById(@PathVariable Long id) {
         return clientService.getClientById(id)
@@ -40,7 +57,11 @@ public class ClientController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // Eliminar cliente por ID
+    /**
+     * Elimina un cliente por su ID.
+     * @param id ID del cliente
+     * @return 204 No Content si se elimina correctamente
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteClient(@PathVariable Long id) {
         clientService.deleteClient(id);

@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.ByteArrayInputStream;
 import java.util.List;
 
+/**
+ * Controlador REST para reportes de ventas.
+ * Proporciona endpoints para obtener reportes mensuales en JSON y PDF.
+ */
 @RestController
 @RequestMapping("/api/reports")
 public class ReportController {
@@ -24,12 +28,20 @@ public class ReportController {
         this.reportService = reportService;
     }
 
+    /**
+     * Obtiene el reporte mensual de ventas en formato JSON.
+     * @return Lista de reportes mensuales
+     */
     @GetMapping("/monthly-sales")
     public ResponseEntity<List<MonthlySalesReportDTO>> getMonthlySalesReport() {
         List<MonthlySalesReportDTO> report = reportService.getMonthlySales();
         return ResponseEntity.ok(report);
     }
 
+    /**
+     * Exporta el reporte mensual de ventas en formato PDF.
+     * @return PDF con el reporte mensual
+     */
     @GetMapping("/monthly-sales/pdf")
     public ResponseEntity<InputStreamResource> exportMonthlySalesPdf() {
         List<MonthlySalesReportDTO> reportList = reportService.getMonthlySales();

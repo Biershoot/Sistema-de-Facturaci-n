@@ -16,6 +16,10 @@ import org.springframework.web.server.ResponseStatusException;
 import java.io.ByteArrayInputStream;
 import java.util.List;
 
+/**
+ * Controlador REST para la gestión de facturas.
+ * Proporciona endpoints para crear, listar, obtener, exportar y descargar facturas en PDF.
+ */
 @RestController
 @RequestMapping("/api/invoices")
 public class InvoiceController {
@@ -28,7 +32,12 @@ public class InvoiceController {
         this.pdfService = pdfService;
     }
 
-    // Crear factura
+    /**
+     * Crea una nueva factura para un cliente.
+     * @param clientId ID del cliente
+     * @param items Lista de productos y cantidades
+     * @return Factura creada
+     */
     @PostMapping("/{clientId}")
     public ResponseEntity<Invoice> createInvoice(
             @PathVariable Long clientId,
@@ -42,13 +51,20 @@ public class InvoiceController {
         }
     }
 
-    // Obtener todas las facturas
+    /**
+     * Obtiene todas las facturas.
+     * @return Lista de facturas
+     */
     @GetMapping
     public ResponseEntity<List<Invoice>> getAllInvoices() {
         return ResponseEntity.ok(invoiceService.getAllInvoices());
     }
 
-    // Obtener factura por ID
+    /**
+     * Obtiene una factura por su ID.
+     * @param id ID de la factura
+     * @return Factura encontrada o 404 si no existe
+     */
     @GetMapping("/{id}")
     public ResponseEntity<Invoice> getInvoiceById(@PathVariable Long id) {
         return invoiceService.getInvoiceById(id)
@@ -56,13 +72,21 @@ public class InvoiceController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // Obtener facturas por cliente
+    /**
+     * Obtiene todas las facturas de un cliente.
+     * @param clientId ID del cliente
+     * @return Lista de facturas del cliente
+     */
     @GetMapping("/client/{clientId}")
     public ResponseEntity<List<Invoice>> getInvoicesByClientId(@PathVariable Long clientId) {
         return ResponseEntity.ok(invoiceService.getInvoicesByClientId(clientId));
     }
 
-    // Descargar PDF de la factura
+    /**
+     * Descarga el PDF de una factura.
+     * @param invoiceId ID de la factura
+     * @return PDF de la factura
+     */
     @GetMapping("/{invoiceId}/pdf")
     public ResponseEntity<InputStreamResource> generateInvoicePdf(@PathVariable Long invoiceId) {
         Invoice invoice = invoiceService.getInvoiceById(invoiceId)
@@ -80,7 +104,11 @@ public class InvoiceController {
                 .body(new InputStreamResource(pdfStream));
     }
 
-    // Exportar factura como PDF (nuevo endpoint)
+    /**
+     * Exporta una factura como PDF usando iText 7.
+     * @param id ID de la factura
+     * @return PDF de la factura como arreglo de bytes
+     */
     @GetMapping("/{id}/export")
     public ResponseEntity<byte[]> exportInvoiceAsPdf(@PathVariable Long id) {
         Invoice invoice = invoiceService.getInvoiceById(id)

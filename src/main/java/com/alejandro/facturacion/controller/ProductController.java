@@ -3,20 +3,30 @@ package com.alejandro.facturacion.controller;
 import com.alejandro.facturacion.entity.Product;
 import com.alejandro.facturacion.service.ProductService;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Controlador REST para la gestión de productos.
+ * Proporciona endpoints para crear, listar, buscar, obtener y eliminar productos.
+ */
 @RestController
 @RequestMapping("/api/products")
-@RequiredArgsConstructor
 public class ProductController {
 
     private final ProductService productService;
 
-    // Crear producto
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
+
+    /**
+     * Crea un nuevo producto.
+     * @param product Producto a crear
+     * @return Producto creado o error si ya existe el nombre
+     */
     @PostMapping
     public ResponseEntity<Product> createProduct(@Valid @RequestBody Product product) {
         if (productService.existsByName(product.getName())) {
@@ -25,19 +35,30 @@ public class ProductController {
         return ResponseEntity.ok(productService.saveProduct(product));
     }
 
-    // Listar todos los productos
+    /**
+     * Obtiene la lista de todos los productos.
+     * @return Lista de productos
+     */
     @GetMapping
     public ResponseEntity<List<Product>> getAllProducts() {
         return ResponseEntity.ok(productService.getAllProducts());
     }
 
-    // Buscar por nombre
+    /**
+     * Busca productos por nombre.
+     * @param name Nombre a buscar
+     * @return Lista de productos que coinciden con el nombre
+     */
     @GetMapping("/search")
     public ResponseEntity<List<Product>> searchByName(@RequestParam String name) {
         return ResponseEntity.ok(productService.searchByName(name));
     }
 
-    // Obtener producto por ID
+    /**
+     * Obtiene un producto por su ID.
+     * @param id ID del producto
+     * @return Producto encontrado o 404 si no existe
+     */
     @GetMapping("/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable Long id) {
         return productService.getProductById(id)
@@ -45,7 +66,11 @@ public class ProductController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // Eliminar producto por ID
+    /**
+     * Elimina un producto por su ID.
+     * @param id ID del producto
+     * @return 204 No Content si se elimina correctamente
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
         productService.deleteProduct(id);
