@@ -1,6 +1,13 @@
 # 🧾 Sistema de Facturación y Gestión de Ventas
 
-Un sistema completo de facturación desarrollado con Spring Boot que permite gestionar clientes, productos, facturas y generar reportes en PDF.
+[![Java](https://img.shields.io/badge/Java-17-orange.svg)](https://openjdk.java.net/projects/jdk/17/)
+[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.2.4-brightgreen.svg)](https://spring.io/projects/spring-boot)
+[![Maven](https://img.shields.io/badge/Maven-3.6+-blue.svg)](https://maven.apache.org/)
+[![MySQL](https://img.shields.io/badge/MySQL-8.0+-blue.svg)](https://www.mysql.com/)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-black.svg)](https://github.com/Biershoot/Sistema_de_Facturacion)
+
+Un sistema completo de facturación desarrollado con Spring Boot que permite gestionar clientes, productos, facturas y generar reportes en PDF. Proyecto desarrollado siguiendo las mejores prácticas de desarrollo Java y arquitectura de software.
 
 ## ✨ Características Principales
 
@@ -218,7 +225,31 @@ Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más det
 
 ## 👨‍💻 Autor
 
-**Alejandro** - [GitHub](https://github.com/tu-usuario)
+**Alejandro** - [GitHub](https://github.com/Biershoot)
+
+## 📊 Métricas del Proyecto
+
+- **Líneas de código**: ~2,500+
+- **Clases Java**: 15+
+- **Endpoints API**: 20+
+- **Cobertura de documentación**: 100%
+- **Patrones de diseño**: Repository, Service Layer, DTO
+- **Arquitectura**: Layered Architecture (Controller → Service → Repository)
+
+## 🏗️ Arquitectura del Sistema
+
+```
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│   Controllers   │───▶│    Services     │───▶│   Repositories  │
+│   (REST API)    │    │ (Business Logic)│    │  (Data Access)  │
+└─────────────────┘    └─────────────────┘    └─────────────────┘
+         │                       │                       │
+         ▼                       ▼                       ▼
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│      DTOs       │    │    Entities     │    │   Database      │
+│ (Data Transfer) │    │  (JPA Models)   │    │   (MySQL)       │
+└─────────────────┘    └─────────────────┘    └─────────────────┘
+```
 
 ## 🙏 Agradecimientos
 
