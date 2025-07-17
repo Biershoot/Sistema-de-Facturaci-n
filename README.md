@@ -4,7 +4,6 @@
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.2.4-brightgreen.svg)](https://spring.io/projects/spring-boot)
 [![Maven](https://img.shields.io/badge/Maven-3.6+-blue.svg)](https://maven.apache.org/)
 [![MySQL](https://img.shields.io/badge/MySQL-8.0+-blue.svg)](https://www.mysql.com/)
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-black.svg)](https://github.com/Biershoot/Sistema_de_Facturacion)
 
 Un sistema completo de facturación desarrollado con Spring Boot que permite gestionar clientes, productos, facturas y generar reportes en PDF. Proyecto desarrollado siguiendo las mejores prácticas de desarrollo Java y arquitectura de software.
@@ -219,13 +218,9 @@ server.port=8080
 4. Push a la rama (`git push origin feature/AmazingFeature`)
 5. Abre un Pull Request
 
-## 📝 Licencia
-
-Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más detalles.
-
 ## 👨‍💻 Autor
 
-**Alejandro** - [GitHub](https://github.com/Biershoot)
+**Alejandro Arango Calderon** - [GitHub](https://github.com/Biershoot)
 
 ## 📊 Métricas del Proyecto
 
